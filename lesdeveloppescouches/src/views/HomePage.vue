@@ -1,6 +1,4 @@
 <template>
-  <div>
-    <base-header></base-header>
     <div id="header-container">
       <div id="header-middle">
         <div id="description-container">
@@ -11,21 +9,20 @@
         <img id="heading-img" src="../assets/undraw_online_learning_re_qw08.svg" class="logo" alt="Logo CooPeer">
       </div>
       <div id="button-container">
-        <button id="sign-in">Se Connecter</button>
-        <button id="sign-up">S'inscrire</button>
+        <router-link to="/login"><BaseButton id="btn1"/></router-link>
+        <router-link to="/signup"><BaseButton id="btn2"/></router-link>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import BaseHeader from "@/components/base-header";
+import BaseButton from "@/components/BaseButton";
 
 export default defineComponent({
-  name: "homePage",
+  name: "HomePage",
   components: {
-    BaseHeader
+    BaseButton
   }
 });
 
@@ -34,12 +31,20 @@ export default defineComponent({
 
 #header-container {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 90px);
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-content: flex-start;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+}
+
+#btn1 {
+  margin-right: 5px;
+}
+
+#btn2 {
+  margin-left: 5px;
 }
 
 #header-middle {
@@ -69,8 +74,8 @@ export default defineComponent({
 
 #description {
   font-size: 2.3vw;
-
   padding-left: 20px;
+  text-align: left;
 }
 
 
@@ -83,21 +88,6 @@ export default defineComponent({
   align-items: center;
 }
 
-button {
-  margin-top: 20px;
-
-  width: 210px;
-  height: 44px;
-
-  border-radius: 28px;
-
-  border: none;
-
-  background-color: #272742;
-
-  color: white;
-}
-
 #sign-in {
   margin-right: 5px;
 }
@@ -105,4 +95,5 @@ button {
 #sign-up {
   margin-left: 5px;
 }
+
 </style>

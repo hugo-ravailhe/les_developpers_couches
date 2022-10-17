@@ -1,15 +1,21 @@
 <template>
-    <div id="header-container">
-        <h1 id="header-title">Coopeer</h1>
-    </div>
+  <div id="header-container">
+    <router-link id="link" to="/"><h1 id="header-title">Coopeer.</h1></router-link>
+  </div>
 </template>
 
 <script>
 export default {
+  name: "BaseHeader"
 }
 </script>
 
 <style scoped>
+#link {
+  text-decoration: none;
+  color: #272742;
+}
+
 #header-container {
   width: 100%;
   height: 90px;
@@ -23,6 +29,8 @@ export default {
 #header-title {
   font-size: 5vw;
   margin-left: 10px;
+
+  text-decoration: none;
 }
 
 #header-title:hover {
