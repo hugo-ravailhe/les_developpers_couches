@@ -1,10 +1,13 @@
 <template>
-  <button>Se Connecter</button>
+  <button>{{ this.text }}</button>
 </template>
 
 <script>
 export default {
-  name: "BaseButton"
+  name: "BaseButton",
+  props: {
+    text: String
+  }
 }
 </script>
 

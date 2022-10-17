@@ -10,7 +10,7 @@
       <label for="password">password</label>
       <input id="password" type="text">
 
-      <BaseButton id="btn"/>
+      <BaseButton id="btn" text="se connecter"/>
     </form>
   </div>
 </template>
@@ -79,4 +79,7 @@ input {
   margin-bottom: 10px;
 }
 
+#text:hover {
+  cursor: default;
+}
 </style>

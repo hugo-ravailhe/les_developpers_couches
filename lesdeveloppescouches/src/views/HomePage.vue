@@ -9,8 +9,8 @@
         <img id="heading-img" src="../assets/undraw_online_learning_re_qw08.svg" class="logo" alt="Logo CooPeer">
       </div>
       <div id="button-container">
-        <router-link to="/login"><BaseButton id="btn1"/></router-link>
-        <router-link to="/signup"><BaseButton id="btn2"/></router-link>
+        <router-link to="/login"><BaseButton id="btn1" text="se connecter"/></router-link>
+        <router-link to="/signup"><BaseButton id="btn2" text="créer un compte"/></router-link>
       </div>
     </div>
 </template>
