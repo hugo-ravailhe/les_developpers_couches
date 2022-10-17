@@ -1,136 +1,108 @@
 <template>
-    <div>
-        <div class="heading-container">
-            <div>
-                <p class="title">
-                    CooPeer.
-                </p>              
-            </div>
-            <div>
-                <img src="../assets/undraw_online_learning_re_qw08.svg"  class="logo" alt="Logo CooPeer">
-            </div>
-            <div>
-                <p class="description">
-                    Le seul service d'aide aux devoirs fait par les étudiants pour les étudiants !
-                </p>
-            </div>
-            <div>
-                <button class="sign-in">Se Connecter</button>
-                <button class="sign-up">S'inscrire</button>
-            </div>
+  <div>
+    <base-header></base-header>
+    <div id="header-container">
+      <div id="header-middle">
+        <div id="description-container">
+          <p id="description">
+            Le seul service d'aide aux devoirs fait par les étudiants pour les étudiants !
+          </p>
         </div>
-        <div class="body-container">
-            <div>
-                <p class="body">
-                    Trouve des élèves qui peuvent t’aider !
-                </p>
-            </div>
-        </div>
+        <img id="heading-img" src="../assets/undraw_online_learning_re_qw08.svg" class="logo" alt="Logo CooPeer">
+      </div>
+      <div id="button-container">
+        <button id="sign-in">Se Connecter</button>
+        <button id="sign-up">S'inscrire</button>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'homePage',
+import {defineComponent} from "vue";
+import BaseHeader from "@/components/base-header";
+
+export default defineComponent({
+  name: "homePage",
   components: {
+    BaseHeader
   }
-}
+});
+
 </script>
 <style scoped>
-.heading-container {
-position: absolute;
-width: 17.375rem;
-height: 13.06rem;
-left: 2.1rem;
-top: 2rem;
+
+#header-container {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 
-.title {
-position: absolute;
-width: 17.25rem;
-height: 2.75rem;
-left: 2rem;
-top: 1rem;
+#header-middle {
+  width: 100%;
+  height: 60%;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 4rem;
-line-height: 115%;
-/* identical to box height, or 44px */
-letter-spacing: -0.019em;
+  margin-top: 5%;
 
-color: #272742;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.description {
-position: absolute;
-width: 22rem;
-height: 3rem;
-left: 2.1rem;
-top: 18rem;
-
-font-family: 'Inter';
-font-style: normal;
-text-align: justify;
-font-weight: 400;
-font-size: 1.875rem;
-line-height: 2rem;
-/* or 171% */
-letter-spacing: -0.006em;
-
-color: #272742;
-
+#heading-img {
+  height: 24vw;
 }
 
-.logo{
-position: absolute;
-width: 300px;
-height: 300px;
-left: 825px; 
-top: 10rem;
+#description-container {
+  width: 40%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.sign-in{
-position: absolute;
-width: 217px;
-height: 49px;
-left: 325px;
-top: 500px;
-border-radius: 28px;
-background-color: #272742;
-color: white;
-}
+#description {
+  font-size: 2.3vw;
 
-.sign-up{
-position: absolute;
-width: 217px;
-height: 49px;
-left: 625px;
-top: 500px;
-border-radius: 28px;
-background-color: #272742;
-color: white;
-
+  padding-left: 20px;
 }
 
 
-.body{
-position: absolute;
-width: 331px;
-height: 47px;
-left: 30px;
-top: 1000px;
+#button-container {
+  width: 100%;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 38px;
-line-height: 115%;
-/* or 44px */
-letter-spacing: -0.019em;
-
-color: #000000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
+button {
+  margin-top: 20px;
+
+  width: 210px;
+  height: 44px;
+
+  border-radius: 28px;
+
+  border: none;
+
+  background-color: #272742;
+
+  color: white;
+}
+
+#sign-in {
+  margin-right: 5px;
+}
+
+#sign-up {
+  margin-left: 5px;
+}
 </style>

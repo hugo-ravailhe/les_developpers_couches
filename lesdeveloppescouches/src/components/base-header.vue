@@ -1,6 +1,6 @@
 <template>
-    <div>
-        
+    <div id="header-container">
+        <h1 id="header-title">Coopeer</h1>
     </div>
 </template>
 
@@ -10,55 +10,22 @@ export default {
 </script>
 
 <style scoped>
-.title {
-position: absolute;
-width: 276px;
-height: 44px;
-left: 35px;
-top: 68px;
+#header-container {
+  width: 100%;
+  height: 90px;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 54px;
-line-height: 115%;
-/* identical to box height, or 44px */
-letter-spacing: -0.019em;
-
-color: #272742;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.title-container {
-position: absolute;
-width: 278px;
-height: 209px;
-left: 35px;
-top: 68px;
+#header-title {
+  font-size: 5vw;
+  margin-left: 10px;
 }
 
-.header-body {
-position: absolute;
-width: 278px;
-height: 48px;
-left: 35px;
-top: 229px;
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 28px;
-line-height: 24px;
-/* or 171% */
-letter-spacing: -0.006em;
-
-color: #272742;
-}
-
-img {
-position: absolute;
-width: 140px;
-height: 146px;
-left: 503px;
-top: 68px;
+#header-title:hover {
+  cursor: pointer;
 }
 </style>
