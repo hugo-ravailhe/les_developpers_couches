@@ -3,6 +3,7 @@ import HomePage from "@/views/HomePage";
 import Login from "@/views/Login";
 import Signup from "@/views/Signup";
 import Classes from "@/views/Classes";
+import BecomeATeacher from "@/views/BecomeATeacher"
 
 const routes = [
   {
@@ -24,7 +25,12 @@ const routes = [
     path: '/classes',
     name: 'Classes',
     component: Classes
-  }
+  },
+  {
+    path: '/becomeateacher',
+    name: 'BecomeATeacher',
+    component: BecomeATeacher
+  },
 ]
 
 const router = createRouter({
