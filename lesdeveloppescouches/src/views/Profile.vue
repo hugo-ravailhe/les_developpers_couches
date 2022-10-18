@@ -8,9 +8,13 @@
     <div id="credentials" class="parameter">
       <img class="params" src="../assets/parameter-icon.png" alt="parameter">
     </div>
-    <div id="learningxp" class="parameter">
-      <h3>L<span>XP</span></h3>
+
+    <div id="learningxp" class="parameter" @mouseover="showLxp" @mouseout="showLxp">
+      <div id="lxp-container">
+        <h3>L<span>XP</span><span id="toggled" v-if="show_lxp"><br>{{this.lxp}}</span></h3>
+      </div>
     </div>
+
     <div id="classes" class="parameter">
       <img class="params" src="../assets/student-hat.png" alt="student hat">
     </div>
@@ -25,8 +29,19 @@ export default {
   name: "Profile",
   components: {
     BaseButton
+  },
+  data() {
+    return {
+      lxp: 100,
+      show_lxp: false,
+    }
+  },
+  methods: {
+    showLxp(e) {
+      e.preventDefault()
+      this.show_lxp = !this.show_lxp
+    }
   }
-
 }
 </script>
 
@@ -57,6 +72,11 @@ export default {
 
 #profile-picture:hover {
   cursor: pointer;
+}
+
+#toggled {
+  color: #272742;
+  font-size: 16px;
 }
 
 .parameter {
@@ -97,6 +117,27 @@ export default {
   position: absolute;
   align-self: center;
   top: 20vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+#lxp-container {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+h3 {
+  align-self: center;
+  font-size: 20px;
+
+  color: #272742;
 }
 
 #classes {
