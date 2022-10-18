@@ -5,6 +5,7 @@ import Signup from "@/views/Signup";
 import Classes from "@/views/Classes";
 import Profile from "@/views/Profile";
 import BecomeATeacher from "@/views/BecomeATeacher"
+import Settings from "@/views/Settings"
 
 const routes = [
   {
@@ -32,11 +33,11 @@ const routes = [
     name: 'Profile',
     component: Profile
   },
-  // {
-  //   path: '/profile/settings',
-  //   name: 'Profile',
-  //   component: Profile
-  // },
+  {
+    path: '/profile/settings',
+    name: 'settings',
+    component: Settings
+  },
   // {
   //   path: '/profile/lxp',
   //   name: 'Profile',
