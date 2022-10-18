@@ -6,7 +6,7 @@
     <BaseButton id="btn" text="se deconnecter"/>
 
     <div id="credentials" class="parameter">
-      <img class="params" src="../assets/parameter-icon.png" alt="parameter">
+      <a href="@/components/settings.vue"><img class="params" src="../assets/parameter-icon.png" alt="parameter"></a>
     </div>
     <div id="learningxp" class="parameter">
       <h3>L<span>XP</span></h3>
