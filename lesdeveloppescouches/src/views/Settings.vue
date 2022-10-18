@@ -102,8 +102,8 @@
   #profile {
     position: fixed;
   
-    top: 25px;
-    right: 10px;
+    top: 25%;
+    right: 48%;
   
     height: 8%;
     height: 10vh;
