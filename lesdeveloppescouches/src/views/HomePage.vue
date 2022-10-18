@@ -31,7 +31,7 @@ export default defineComponent({
 
 #header-container {
   width: 100%;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 110px);
 
   display: flex;
   flex-direction: column;

@@ -30,7 +30,7 @@ export default {
 <style scoped>
 #main {
   width: 100%;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 110px);
 
   display: flex;
   flex-direction: row;
