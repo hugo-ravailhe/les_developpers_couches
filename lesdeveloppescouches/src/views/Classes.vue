@@ -1,12 +1,12 @@
 <template>
+  <BaseHeader/>
   <div id="container">
-    <BaseButton id="btn" text="tu souhaites devenir prof ?"/>
-    <img id="profile" src="../assets/profile.png" alt="profile picture">
-
     <div id="main-content">
       <div id="texts">
         <h3>Où as-tu besoin d’aide ? </h3>
-        <p>Des centaines d’élèves donnent des cours pour t’aider ! <span>Tu souhaites devenir l’un d’entre-eux ?</span></p>
+        <p>Des centaines d’élèves donnent des cours pour t’aider !
+          <span @click="$router.push('/becomeateacher')">Tu souhaites devenir l’un d’entre-eux ?</span>
+        </p>
       </div>
       <div id="classes-container">
         <div id="classes" v-for="i in 9" :key="i">
@@ -18,17 +18,24 @@
 </template>
 
 <script>
-import BaseButton from "@/components/BaseButton";
 import Class from "@/components/Class";
+import BaseHeader from "@/components/BaseHeader";
+import {mapState} from "pinia";
+import {useCoopeerStore} from "@/stores/store";
 
 export default {
   // eslint-disable-next-line
   name: "Classes",
   components: {
-    BaseButton,
-    Class
+    Class,
+    BaseHeader
+  },
+  mounted() {
+    this.decodeToken(localStorage.getItem("token"))
+  },
+  methods: {
+    ...mapState(useCoopeerStore, ["decodeToken"])
   }
-
 }
 </script>
 

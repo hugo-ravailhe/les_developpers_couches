@@ -1,4 +1,5 @@
 <template>
+  <BaseHeader/>
   <div id="main">
     <div id="left-side">
       <p id="text">study with your peers</p>
@@ -33,11 +34,17 @@
 import BaseButton from "@/components/BaseButton";
 import {emailValidation, passwordValidation} from "@/validators/validations";
 import {defineComponent} from "vue";
+import {logIn} from "@/providers/AuthProvider";
+import {Credentials} from "@/providers/models/User";
+import {useCoopeerStore} from "@/stores/store";
+import {mapActions} from "pinia";
+import BaseHeader from "@/components/BaseHeader";
 
 export default defineComponent({
   name: "Login",
   components: {
-    BaseButton
+    BaseButton,
+    BaseHeader
   },
   data() {
     return {
@@ -48,6 +55,8 @@ export default defineComponent({
       emailError: "field must not be empty",
       passwordError: "field must not be empty"
     }
+  },
+  computed: {
   },
   methods: {
     emailValidation() {
@@ -60,9 +69,22 @@ export default defineComponent({
       this.validatedPassword = validate
       this.passwordError = errorMsg
     },
-    sendForm() {
+    async sendForm(e) {
+      e.preventDefault()
+
       if (!this.validatedEmail || !this.validatedPassword) alert("Vos champs ne sont pas valides")
-    }
+
+      const res = await logIn(new Credentials(this.email, this.password))
+      const data = await res.json()
+
+      if (data.token === undefined || data.token === null)
+        alert("Cet utilisateur n'existe pas")
+
+      await this.acknowledgeToken(data.token)
+
+      this.$router.push("/profile")
+    },
+    ...mapActions(useCoopeerStore, ["acknowledgeToken"])
   }
 })
 </script>

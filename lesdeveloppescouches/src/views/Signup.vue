@@ -1,4 +1,5 @@
 <template>
+  <BaseHeader/>
   <div id="main">
     <div id="left-side">
       <p id="text">study with your peers</p>
@@ -45,7 +46,7 @@
         <div class="hidden" v-else></div>
       </div>
 
-      <BaseButton id="btn" text="créer un compte"/>
+      <BaseButton id="btn" text="créer un compte" @click="sendForm"/>
     </form>
   </div>
 </template>
@@ -53,11 +54,17 @@
 <script>
 import BaseButton from "@/components/BaseButton";
 import {emailValidation, passwordValidation, rePasswordValidation, validation} from "@/validators/validations";
+import {User} from "@/providers/models/User";
+import {signUp} from "@/providers/AuthProvider";
+import {useCoopeerStore} from "@/stores/store";
+import {mapActions} from "pinia";
+import BaseHeader from "@/components/BaseHeader";
 
 export default {
   // eslint-disable-next-line
   name: "Signup",
   components: {
+    BaseHeader,
     BaseButton
   },
   data() {
@@ -107,10 +114,37 @@ export default {
       this.validatedRePassword = validate
       this.rePasswordError = errorMsg
     },
-    sendForm() {
-      if (!this.validatedEmail || !this.validatedPassword) alert("Vos champs ne sont pas valides")
-    }
-  }
+    async sendForm(e) {
+      e.preventDefault()
+
+      if (!this.validatedEmail || !this.validatedPassword || !this.validatedName || !this.validatedSurname || !this.validatedRePassword) {
+        alert("Vos champs ne sont pas valides")
+        return
+      }
+
+      const user = new User(
+          0,
+          this.name,
+          this.surname,
+          this.email,
+          this.password,
+          this.rePassword,
+          0
+      )
+
+      const res = await signUp(user)
+      const data = await res.json()
+
+      if (!data.auth) {
+        alert("Cet utilisateur n'a pas pu être créé")
+        return
+      }
+
+      await this.acknowledgeToken(data.token)
+      this.$router.push("/classes")
+    },
+    ...mapActions(useCoopeerStore, ["acknowledgeToken"])
+  },
 }
 </script>
 
