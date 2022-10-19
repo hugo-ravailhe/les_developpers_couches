@@ -15,8 +15,10 @@ export default {
 button {
   margin-top: 20px;
 
-  width: 210px;
-  height: 44px;
+  width: 14vw;
+  min-width: 105px;
+  height: 5vh;
+  min-height: 22px;
 
   border-radius: 28px;
 

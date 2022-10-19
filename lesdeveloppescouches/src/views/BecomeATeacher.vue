@@ -1,7 +1,6 @@
 <template>
+    <BaseHeader/>
     <div id="container">
-      <img id="profile" src="../assets/profile.png" alt="profile picture">
-  
       <div id="main-content">
         <div id="texts">
           <h3>Quels sont tes domaines de prédilection ? </h3>
@@ -12,23 +11,21 @@
             <Class id="class" name="Français" img="fricon.png"/>
           </div>
         </div>
-        <BaseButton id="btn" text="tu souhaites devenir prof ?"/>
       </div>
     </div>
   </template>
   
   <script>
-  import BaseButton from "@/components/BaseButton";
   import Class from "@/components/Class";
+  import BaseHeader from "@/components/BaseHeader";
   
   export default {
     // eslint-disable-next-line
     name: "BecomeATeacher",
     components: {
-      BaseButton,
-      Class
-    }
-  
+      Class,
+      BaseHeader
+    },
   }
   </script>
   

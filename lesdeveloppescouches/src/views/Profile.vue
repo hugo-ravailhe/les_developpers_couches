@@ -1,12 +1,11 @@
 <template>
+  <BaseHeader/>
   <div id="main-content">
     <img id="profile-picture" src="../assets/profile.png" alt="profile">
     <h2>Username</h2>
 
-    <BaseButton id="btn" text="se deconnecter"/>
-
     <div id="credentials" class="parameter">
-      <a href="@/components/settings.vue"><img class="params" src="../assets/parameter-icon.png" alt="parameter"></a>
+      <router-link to="/settings"><img class="params" src="../assets/parameter-icon.png" alt="parameter"></router-link>
     </div>
 
     <div id="learningxp" class="parameter" @mouseover="showLxp" @mouseout="showLxp">
@@ -22,13 +21,14 @@
 </template>
 
 <script>
-import BaseButton from "@/components/BaseButton";
+
+import BaseHeader from "@/components/BaseHeader";
 
 export default {
   // eslint-disable-next-line
   name: "Profile",
   components: {
-    BaseButton
+    BaseHeader
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
       e.preventDefault()
       this.show_lxp = !this.show_lxp
     }
-  }
+  },
 }
 </script>
 
@@ -104,6 +104,7 @@ export default {
   width: 85%;
 
   align-self: center;
+  margin-top: 8px;
 }
 
 #credentials {
@@ -111,6 +112,11 @@ export default {
   align-self: center;
   left: 25vw;
   top: 68vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 #learningxp {

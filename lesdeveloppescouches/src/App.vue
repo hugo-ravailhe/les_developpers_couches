@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <BaseHeader></BaseHeader>
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import BaseHeader from "../src/components/BaseHeader"
 
 export default defineComponent({
   name:"App",
   components: {
-    BaseHeader
+  },
+  beforeRouteEnter() {
+    window.location.reload()
   }
 })
 </script>

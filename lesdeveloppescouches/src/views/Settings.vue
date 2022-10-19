@@ -1,4 +1,5 @@
 <template>
+    <BaseHeader/>
     <div id="main">
         <img id="profile" src="../assets/profile.png" alt="profile">
         <form id="right-side">
@@ -25,11 +26,13 @@
   
   <script>
   import BaseButton from "@/components/BaseButton";
+  import BaseHeader from "@/components/BaseHeader";
   
   export default {
     // eslint-disable-next-line
     name: "Settings",
     components: {
+      BaseHeader,
       BaseButton
     }
   }

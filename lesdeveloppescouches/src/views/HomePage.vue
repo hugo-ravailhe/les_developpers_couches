@@ -1,4 +1,5 @@
 <template>
+  <BaseHeader/>
     <div id="header-container">
       <div id="header-middle">
         <div id="description-container">
@@ -18,11 +19,13 @@
 <script>
 import {defineComponent} from "vue";
 import BaseButton from "@/components/BaseButton";
+import BaseHeader from "@/components/BaseHeader";
 
 export default defineComponent({
   name: "HomePage",
   components: {
-    BaseButton
+    BaseButton,
+    BaseHeader
   }
 });
 
