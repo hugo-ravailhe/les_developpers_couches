@@ -11,9 +11,6 @@ export default defineComponent({
   name:"App",
   components: {
   },
-  beforeRouteEnter() {
-    window.location.reload()
-  }
 })
 </script>
 
