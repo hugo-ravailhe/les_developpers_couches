@@ -1,5 +1,5 @@
 <template>
-  <div id="header-container">
+  <div id="header">
     <router-link id="link" to="/"><h1 id="header-title">Coopeer.</h1></router-link>
     <div id="profile" v-if="connected()">
       <h5> Bonjour <span style="color: #272742"><br> {{ this.user.name }} <br> {{this.user.surname}}</span></h5>
@@ -53,7 +53,7 @@ export default {
   margin-bottom: 15px;
 }
 
-#header-container {
+#header {
   width: 100%;
   height: 90px;
 
