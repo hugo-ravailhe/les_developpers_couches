@@ -4,7 +4,7 @@
     <div id="up-content">
       <h1>Vos prochains cours :</h1>
     </div>
-    <div id="course-content" v-if="showForm">
+    <div id="course-content" v-if="!showForm">
       <div id="course" v-for="(course, i) in courses" :key="i">
         <div v-if="course.teacherID"></div>
         <Course
@@ -13,6 +13,7 @@
             :students="course.students"
             :subject="course.subject"
         />
+      </div>
     </div>
     <div id="form" class="form-body" v-else>
         <form action="POST">
@@ -40,7 +41,6 @@
           </div>
         </form>
       </div>
-    </div>
     <BaseButton id="btn" text="Ajouter un cours" @click="showForm = !showForm"/>
   </div>
 </template>
@@ -62,7 +62,9 @@ export default {
   },
   data() {
     return {
-      courses: []
+      courses: [],
+      showForm: false
+     
     }
   },
   async mounted() {
@@ -72,21 +74,10 @@ export default {
     async getCourses() {
       return await getAllCourses(localStorage.getItem("token"));
     },
-    async showForm() {
-      const btn = document.getElementById('btn');
-
-      btn.addEventListener('click', () => {
-      const form = document.getElementById('form');
-
-      if (form.style.display === 'none') {
-        // 👇️ this SHOWS the form
-        form.style.display = 'flex';
-       } else {
-        // 👇️ this HIDES the form
-        form.style.display = 'none';
-  }
-});
+    toggleShow(){
+      this.showForm = !this.showForm;
     }
+    
   }
   }
 
