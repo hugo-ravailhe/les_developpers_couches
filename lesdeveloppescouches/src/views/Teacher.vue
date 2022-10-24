@@ -16,42 +16,47 @@
       </div>
     </div>
     <div id="form" class="form-body" v-else>
-        <form action="POST">
-          <label for="sujet">sujet</label>
-          <div class="col">
-            <div class="col-md-12">
-            <select id="subject" name="subject" required>
+      <form action="POST">
+        <label for="sujet">sujet</label>
+        <div class="col">
+          <div class="col-md-12">
+            <select id="subject" name="subject" required v-model="subject">
               <option value="francais">francais</option>
-              <option value="mathematiques">mathematiques</option>
+              <option value="maths">mathematiques</option>
               <option value="physique">physique</option>
               <option value="java">java</option>
               <option value="c#">c#</option>
               <option value="javascript">javascript</option>
               <option value="web">web</option>
               <option value="histoire">histoire</option>
-          </select>
+            </select>
           </div>
-          <div lass="col-md-12">
+          <div class="col-md-12">
             <label for="date">date</label>
           </div>
-          <div lass="col-md-12">
-            <input type="time" name="time">
+          <div class="col-md-12">
+            <input type="date" name="time" v-model="date">
           </div>
-          <button type="submit">Ajouter le cours</button>
+          <div class="col-md-12">
+            <label for="time">heure</label>
           </div>
-        </form>
-      </div>
-    <BaseButton id="btn" text="Ajouter un cours" @click="showForm = !showForm"/>
+          <div class="col-md-12">
+            <input type="time" name="time" v-model="time">
+          </div>
+          <BaseButton text="Ajouter le cours" @click="addCourse"/>
+        </div>
+      </form>
+    </div>
+    <BaseButton id="btn" text="Ajouter un cours" @click="showForm = !showForm" v-if="!showForm"/>
+    <BaseButton id="btn" text="Ne pas créer de cours" @click="showForm = !showForm" v-if="showForm"/>
   </div>
 </template>
-
-//beautiful form css
 
 <script>
 import BaseHeader from "@/components/BaseHeader";
 import Course from "@/components/Course";
 import BaseButton from "@/components/BaseButton";
-import {getAllCourses} from "@/providers/ClassProvider";
+import {addCourse, getAllCourses} from "@/providers/ClassProvider";
 
 export default {
   name: "Teacher",
@@ -63,8 +68,10 @@ export default {
   data() {
     return {
       courses: [],
-      showForm: false
-     
+      showForm: false,
+      date: new Date(),
+      time: new Date(),
+      subject: ""
     }
   },
   async mounted() {
@@ -74,15 +81,16 @@ export default {
     async getCourses() {
       return await getAllCourses(localStorage.getItem("token"));
     },
-    toggleShow(){
+    async addCourse(e) {
+      e.preventDefault();
       this.showForm = !this.showForm;
+      const date = new Date(this.date + " " + this.time);
+      await addCourse(new Object({"subject":this.subject, "date":date}), localStorage.getItem("token"));
+
+      window.location.reload();
     }
-    
   }
-  }
-
-
-
+}
 </script>
 
 <style scoped>
@@ -131,35 +139,6 @@ export default {
   border-color: #bbf0e3;
 }
 
-#form button {
-  background: #bbf0e3;
-  border: 0;
-  border-radius: 4px;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  padding: 12px 45px;
-  text-transform: uppercase;
-  -webkit-transition: all 0.45s ease;
-  transition: all 0.45s ease;
-}
-
-#form button:hover {
-  background: #ffffff;
-  color: #bbf0e3;
-}
-
-#form button:focus {
-  outline: none;
-}
-
-#form button:active {
-  -webkit-transform: scale(0.99);
-  transform: scale(0.99);
-}
 
 #main-content {
   width: 100%;
@@ -175,8 +154,8 @@ export default {
   height: 50%;
 
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
 

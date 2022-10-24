@@ -64,10 +64,25 @@ async function registerTeacherToClasses(data) {
     return await res.json();
 }
 
+async function addCourse(data, token) {
+    await fetch(BASE_URL + "courses", {
+        method: "POST",
+        headers: {
+            "Authorization": "Token " + token,
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "subject":data.subject,
+            "date":data.date,
+        })
+    })
+}
+
 module.exports = {
     getAllClasses,
     registerTeacherToClasses,
     getAllCourses,
     findClassFromId,
-    getCourses
+    getCourses,
+    addCourse
 }
