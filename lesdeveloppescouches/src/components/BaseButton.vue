@@ -1,12 +1,13 @@
 <template>
-  <button>{{ this.text }}</button>
+  <button :disabled="disabled">{{ this.text }}</button>
 </template>
 
 <script>
 export default {
   name: "BaseButton",
   props: {
-    text: String
+    text: String,
+    disabled: Boolean
   }
 }
 </script>
@@ -39,5 +40,10 @@ button {
 button:hover {
   cursor: pointer;
   box-shadow: 0 0 45px 2px #272742, 0.5rem 0.5rem 30px #13092d;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  box-shadow: 0 0 45px 2px #272742, 0.5rem 0.5rem 30px #737390;
 }
 </style>

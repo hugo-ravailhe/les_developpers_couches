@@ -7,10 +7,11 @@
           <p>Dis nous tout juste en dessous !</p>
         </div>
         <div id="classes-container">
-          <div id="classes" v-for="i in 9" :key="i">
-            <Class id="class" name="Français" img="fricon.png"/>
+          <div id="classes" v-for="(clazz, i) in this.classes" :key="i" @click="addSelectedClass">
+            <Class id="class" :name="clazz.name" :img="clazz.image"/>
           </div>
         </div>
+        <BaseButton id="btn" text="S'inscrire en tant que professeur" @click="registerToClasses" :disabled="this.selectedClasses.length === 0"/>
       </div>
     </div>
   </template>
@@ -18,18 +19,68 @@
   <script>
   import Class from "@/components/Class";
   import BaseHeader from "@/components/BaseHeader";
+  import {getAllClasses, registerTeacherToClasses} from "@/providers/ClassProvider";
+  import BaseButton from "@/components/BaseButton";
   
   export default {
     // eslint-disable-next-line
     name: "BecomeATeacher",
     components: {
       Class,
-      BaseHeader
+      BaseHeader,
+      BaseButton
     },
+    data() {
+      return {
+        classes: [],
+        selectedClasses: []
+      }
+    },
+    async mounted() {
+      this.classes = await this.getClasses();
+    },
+    methods: {
+      async registerToClasses() {
+        await registerTeacherToClasses({token:localStorage.getItem("token"), subjects:this.selectedClasses});
+        localStorage.setItem("isTeacher", "true");
+      },
+      async getClasses() {
+        return await getAllClasses(localStorage.getItem("token"));
+      },
+      addSelectedClass(event) {
+        const selected = event.target;
+        let clazz = "";
+
+        if (selected.tagName === "P") {
+          clazz = selected.innerText;
+        }
+
+        else if (selected.tagName === "IMG") {
+          clazz = selected.alt;
+        }
+
+        else {
+          clazz = selected.querySelector("p").innerText;
+        }
+
+        if (this.selectedClasses.includes(clazz)) {
+          const index = this.selectedClasses.indexOf(clazz);
+          this.selectedClasses.splice(index, 1);
+          return;
+        }
+
+        this.selectedClasses.push(clazz);
+        console.log(this.selectedClasses);
+      }
+    }
   }
   </script>
   
   <style scoped>
+  #btn {
+    align-self: center;
+  }
+
   h3 {
     font-size: 30px;
   }
@@ -53,20 +104,6 @@
     right: 43.5%;
   }
   
-  
-  #profile {
-    position: fixed;
-  
-    top: 25px;
-    right: 10px;
-  
-    height: 8%;
-  }
-  
-  #profile:hover {
-    cursor: pointer;
-  }
-  
   #container {
     width: 100%;
     height: calc(100vh - 110px);
@@ -80,16 +117,16 @@
   #main-content {
     width: 100%;
     height: calc(100vh - 110px);
-  
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-content: center;
+    align-content: flex-start;
   }
   
   #classes-container {
     width: 80%;
-  
+
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -114,6 +151,8 @@
   #texts {
     margin-top: 7%;
     margin-bottom: 10%;
+
+    height: 10%;
   }
   
   </style>
