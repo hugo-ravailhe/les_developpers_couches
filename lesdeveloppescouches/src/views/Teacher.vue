@@ -4,7 +4,7 @@
     <div id="up-content">
       <h1>Vos prochains cours :</h1>
     </div>
-    <div id="course-content">
+    <div id="course-content" v-if="showForm">
       <div id="course" v-for="(course, i) in courses" :key="i">
         <div v-if="course.teacherID"></div>
         <Course
@@ -13,8 +13,8 @@
             :students="course.students"
             :subject="course.subject"
         />
-      </div>
-      <div id="form" class="form-body">
+    </div>
+    <div id="form" class="form-body" v-else>
         <form action="POST">
           <label for="sujet">sujet</label>
           <div class="col">
@@ -41,7 +41,7 @@
         </form>
       </div>
     </div>
-    <BaseButton id="btn" text="Ajouter un cours"/>
+    <BaseButton id="btn" text="Ajouter un cours" @click="showForm = !showForm"/>
   </div>
 </template>
 
