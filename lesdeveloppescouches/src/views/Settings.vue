@@ -1,25 +1,25 @@
 <template>
     <BaseHeader/>
     <div id="main">
-        <img id="profile" src="../assets/profile.png" alt="profile">
-        <form id="right-side">
-        <div class="outer-div">
-            <div class="inside-div">
-                <label for="username">username</label>
-                <input id="username" type="text">
-            </div>
-            <img src="../assets/editer.png">
-        </div>
+        <form id="form-content">
+          <img id="profile" src="../assets/profile.png" alt="profile">
+          <div class="outer-div">
+              <div class="inside-div">
+                  <label for="username">username</label>
+                  <input id="username" type="text">
+              </div>
+              <img class="editor" src="../assets/editer.png" alt="editing icon">
+          </div>
 
-        <div class="outer-div">
-            <div class="inside-div">
-                <label for="mail">email</label>
-                <input id="mail" type="email">
-            </div>
-            <img src="../assets/editer.png">
-        </div>
-      
-        <BaseButton id="btn" text="sauvegarder les changements"/>
+          <div class="outer-div">
+              <div class="inside-div">
+                  <label for="mail">email</label>
+                  <input id="mail" type="email">
+              </div>
+              <img class="editor" src="../assets/editer.png">
+          </div>
+
+          <BaseButton id="btn" text="sauvegarder les changements"/>
       </form>
     </div>
   </template>
@@ -63,7 +63,7 @@
     align-content: center;
   }
   
-  #right-side {
+  #form-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,20 +87,23 @@
   label {
     text-align: left;
   }
-  
+
   input {
     width: 35vw;
     height: 5vh;
-  
+
     border-radius: 10px;
-  
+
     margin-bottom: 10px;
+
+    align-self: flex-start;
+
+    border: 1px solid black;
   }
   
   #text:hover {
     cursor: default;
   }
-
   
   #profile {
     position: fixed;
@@ -131,5 +134,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+  
+  .editor {
+    cursor: pointer;
   }
   </style>

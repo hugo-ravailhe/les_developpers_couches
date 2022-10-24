@@ -9,10 +9,11 @@
         </p>
       </div>
       <div id="classes-container">
-        <div id="classes" v-for="i in 9" :key="i">
-          <Class id="class" name="Français" img="fricon.png"/>
+        <div id="classes" v-for="(clazz, i) in classes" :key="i">
+          <Class :class="clazz" :name="clazz.name" :img="clazz.image" @click="addSelectedClass"/>
         </div>
       </div>
+      <BaseButton id="btn" text="rechercher" :disabled="selectedClasses.length === 0"/>
     </div>
   </div>
 </template>
@@ -22,24 +23,63 @@ import Class from "@/components/Class";
 import BaseHeader from "@/components/BaseHeader";
 import {mapState} from "pinia";
 import {useCoopeerStore} from "@/stores/store";
+import {getAllClasses} from "@/providers/ClassProvider";
+import BaseButton from "@/components/BaseButton";
 
 export default {
   // eslint-disable-next-line
   name: "Classes",
   components: {
+    BaseButton,
     Class,
     BaseHeader
   },
-  mounted() {
-    this.decodeToken(localStorage.getItem("token"))
+  data() {
+    return {
+      classes : [],
+      selectedClasses : [],
+    }
+  },
+  async mounted() {
+    this.decodeToken(localStorage.getItem("token"));
+    this.classes = await this.getClasses();
   },
   methods: {
-    ...mapState(useCoopeerStore, ["decodeToken"])
+    ...mapState(useCoopeerStore, ["decodeToken"]),
+    async getClasses() {
+      return await getAllClasses(localStorage.getItem('token'));
+    },
+    addSelectedClass(event) {
+      const selected = event.target;
+      let clazz = "";
+
+      if (selected.toString().includes("p")) {
+        clazz = selected.innerText;
+      }
+
+      else if (selected.toString().includes("img")) {
+        clazz = selected.alt;
+      }
+
+      else {
+        clazz = selected.querySelector("p").innerText;
+      }
+
+      if (this.selectedClasses.includes(clazz)) {
+        const index = this.selectedClasses.indexOf(clazz);
+        this.selectedClasses.splice(index, 1);
+        return;
+      }
+
+      this.selectedClasses.push(clazz);
+      console.log(this.selectedClasses);
+    }
   }
 }
 </script>
 
 <style scoped>
+
 h3 {
   font-size: 30px;
 }
@@ -54,10 +94,7 @@ span:hover {
 }
 
 #btn {
-  position: fixed;
-
-  top: 15px;
-  right: 30%;
+  align-self: center;
 }
 
 
@@ -96,6 +133,7 @@ span:hover {
 
 #classes-container {
   width: 80%;
+  height: 30%;
 
   display: flex;
   flex-wrap: wrap;
@@ -117,5 +155,6 @@ span:hover {
 
   flex: 0 0 33.33%;
 }
+
 
 </style>

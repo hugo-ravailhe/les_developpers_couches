@@ -5,7 +5,7 @@
     <h2>Username</h2>
 
     <div id="credentials" class="parameter">
-      <router-link to="/settings"><img class="params" src="../assets/parameter-icon.png" alt="parameter"></router-link>
+      <router-link to="/profile/settings"><img class="params" src="../assets/parameter-icon.png" alt="parameter"></router-link>
     </div>
 
     <div id="learningxp" class="parameter" @mouseover="showLxp" @mouseout="showLxp">

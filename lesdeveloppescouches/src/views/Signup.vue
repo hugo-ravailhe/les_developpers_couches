@@ -4,7 +4,7 @@
     <div id="left-side">
       <p id="text">study with your peers</p>
     </div>
-    <form id="right-side">
+    <form id="form-content">
       <div class="r-container">
         <label for="name">name</label>
         <input id="name" type="text" :class="{errors: !validatedName, valid: validatedName}" v-model="name" @input="nameValidation">
@@ -167,7 +167,7 @@ export default {
   align-content: center;
 }
 
-#right-side {
+#form-content {
   width: 35vw;
 
   display: flex;

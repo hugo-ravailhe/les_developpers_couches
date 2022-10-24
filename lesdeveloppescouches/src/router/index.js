@@ -6,7 +6,7 @@ import Classes from "@/views/Classes";
 import Profile from "@/views/Profile";
 import BecomeATeacher from "@/views/BecomeATeacher"
 import Settings from "@/views/Settings"
-import {pinia, useCoopeerStore} from "@/stores/store";
+import Teacher from "@/views/Teacher";
 
 const routes = [
   {
@@ -49,6 +49,11 @@ const routes = [
     name: 'BecomeATeacher',
     component: BecomeATeacher
   },
+  {
+    path: '/teacher',
+    name: 'Teacher',
+    component: Teacher
+  }
 ]
 
 const router = createRouter({
@@ -60,15 +65,15 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const loggedIn = localStorage.getItem("token") !== null
   const protectedViews = ['/becomeateacher', '/settings', '/profile', '/classes']
-  const store = useCoopeerStore(pinia)
 
   if (loggedIn) {
-    store.decodeToken(localStorage.getItem("token"))
-    console.log(store.user)
+    if (to.path === "/becomeateacher" && localStorage.getItem("isTeacher") !== undefined) {
+      return "/teacher";
+    }
   }
 
   if (!loggedIn && protectedViews.find((el) => el === to.path)) {
-    return "/login"
+    return "/login";
   }
 
   else if (loggedIn && ['/', '/login', '/register'].find((el) => el === to.path)) {

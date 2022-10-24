@@ -31,3 +31,22 @@ export async function logIn(credentials) {
         })
     })
 }
+
+export async function getUsers() {
+    const res = await fetch(BASE_URL + "users");
+    return await res.json();
+}
+
+export async function getUserFromTeacher(teacherID) {
+    const users = await getUsers();
+    let userTeacher = null;
+    users.forEach(user => {
+        if (user.teacherID !== undefined) {
+            if (user.teacherID === teacherID) {
+                userTeacher = user;
+            }
+        }
+    });
+
+    return userTeacher;
+}

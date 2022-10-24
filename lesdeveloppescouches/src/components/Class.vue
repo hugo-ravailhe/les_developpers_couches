@@ -1,8 +1,10 @@
 <template>
   <div id="class-item">
-    <div id="inside">
+    <div id="inside" :class="{selected: clicked}" @click="clicked = !clicked">
       <img id="content-img" :src="getImg(img)" :alt="name">
-      <p>{{name}}</p>
+      <div id="text">
+        <p>{{name}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -18,10 +20,15 @@ export default {
     },
     name: String
   },
+  data() {
+    return {
+      clicked: false
+    }
+  },
   methods: {
     getImg(url) {
-      return require('../assets/' + url)
-    }
+      return url
+    },
   }
 }
 </script>
@@ -57,6 +64,15 @@ export default {
 }
 
 #content-img {
-  height: auto;
+  height: 30px;
+  width: 30px;
+}
+
+#text {
+  width: 50%;
+}
+
+.selected {
+  font-weight: bolder;
 }
 </style>
