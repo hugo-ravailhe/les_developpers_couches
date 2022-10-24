@@ -7,6 +7,7 @@ import Profile from "@/views/Profile";
 import BecomeATeacher from "@/views/BecomeATeacher"
 import Settings from "@/views/Settings"
 import Teacher from "@/views/Teacher";
+import CourseSearch from "@/views/CourseSearch";
 
 const routes = [
   {
@@ -53,6 +54,11 @@ const routes = [
     path: '/teacher',
     name: 'Teacher',
     component: Teacher
+  },
+  {
+    path: '/classes/search',
+    name: 'ClassSearch',
+    component: CourseSearch
   }
 ]
 

@@ -7,7 +7,8 @@ setActivePinia(pinia)
 export const useCoopeerStore = defineStore('Coopeer', {
     state: () => ({
         loggedIn: false,
-        user: {}
+        user: {},
+        subjects: []
     }),
     getters: {
 
@@ -38,6 +39,9 @@ export const useCoopeerStore = defineStore('Coopeer', {
         },
         connected() {
             return localStorage.getItem("token") != null
+        },
+        clearStore() {
+            this.subjects = [];
         }
     }
 })

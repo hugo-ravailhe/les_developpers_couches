@@ -13,7 +13,14 @@
           <Class :class="clazz" :name="clazz.name" :img="clazz.image" @click="addSelectedClass"/>
         </div>
       </div>
-      <BaseButton id="btn" text="rechercher" :disabled="selectedClasses.length === 0"/>
+      <router-link to="/classes/search">
+        <BaseButton
+            id="btn"
+            text="rechercher"
+            :disabled="selectedClasses.length === 0"
+            @click="search"
+        />
+      </router-link>
     </div>
   </div>
 </template>
@@ -72,8 +79,13 @@ export default {
       }
 
       this.selectedClasses.push(clazz);
-      console.log(this.selectedClasses);
+    },
+    search() {
+      this.subjects.push(...this.selectedClasses);
     }
+  },
+  computed: {
+    ...mapState(useCoopeerStore, ["subjects"])
   }
 }
 </script>

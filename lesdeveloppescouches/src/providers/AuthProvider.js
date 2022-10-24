@@ -17,9 +17,6 @@ export async function signUp(user) {
 }
 
 export async function logIn(credentials) {
-
-    console.log(credentials)
-
     return await fetch(BASE_URL + 'auth/login', {
         headers: {
             'Content-type': 'application/json'

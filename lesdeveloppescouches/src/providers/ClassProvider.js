@@ -18,7 +18,6 @@ async function findClassFromId(token, subject) {
             return clazz;
         }
     }
-
     return null;
 }
 
@@ -31,6 +30,24 @@ async function getAllCourses(token) {
     });
 
     return await res.json();
+}
+
+async function getCourses(token, subjects) {
+    const courses = await getAllCourses(token);
+    const foundCourses = [];
+    console.log(subjects);
+
+    for (const course of courses) {
+        for (const subject of subjects) {
+            if (course.subject === subject) {
+                foundCourses.push(course);
+            }
+        }
+    }
+
+    console.log(foundCourses);
+
+    return foundCourses;
 }
 
 async function registerTeacherToClasses(data) {
@@ -51,5 +68,6 @@ module.exports = {
     getAllClasses,
     registerTeacherToClasses,
     getAllCourses,
-    findClassFromId
+    findClassFromId,
+    getCourses
 }
