@@ -25,7 +25,7 @@ export default {
 
   data() {
     return {
-      user: JSON.parse(localStorage.getItem("user"))
+      user: JSON.parse(localStorage.getItem("user")),
     }
   },
   computed: {
