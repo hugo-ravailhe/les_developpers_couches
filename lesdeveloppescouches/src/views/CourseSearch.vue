@@ -51,6 +51,7 @@ export default {
   },
   async mounted() {
     const foundCourses = await getCourses(localStorage.getItem("token"), this.subjects);
+
     this.courses.push(...foundCourses);
     console.log(this.courses);
     this.clearStore();

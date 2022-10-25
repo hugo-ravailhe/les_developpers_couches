@@ -56,7 +56,7 @@
 import BaseHeader from "@/components/BaseHeader";
 import Course from "@/components/Course";
 import BaseButton from "@/components/BaseButton";
-import {addCourse, getAllCourses} from "@/providers/ClassProvider";
+import {addCourse, getCoursesBy} from "@/providers/ClassProvider";
 
 export default {
   name: "Teacher",
@@ -79,7 +79,10 @@ export default {
   },
   methods: {
     async getCourses() {
-      return await getAllCourses(localStorage.getItem("token"));
+      const user = JSON.parse(localStorage.getItem("user"));
+      let courses = await getCoursesBy(localStorage.getItem("token"), user.id);
+      console.log(courses);
+      return courses;
     },
     async addCourse(e) {
       e.preventDefault();

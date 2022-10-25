@@ -34,6 +34,11 @@ export async function getUsers() {
     return await res.json();
 }
 
+export async function getUser(id) {
+    const res = await fetch(BASE_URL + "users/" + id);
+    return await res.json();
+}
+
 export async function getUserFromTeacher(teacherID) {
     const users = await getUsers();
     let userTeacher = null;

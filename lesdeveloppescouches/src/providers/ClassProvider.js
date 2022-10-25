@@ -1,3 +1,4 @@
+const {getUser} = require("@/providers/AuthProvider");
 const BASE_URL = 'http://127.0.0.1:3000/api/'
 
 async function getAllClasses(token) {
@@ -41,6 +42,21 @@ async function getCourses(token, subjects) {
             if (course.subject === subject) {
                 foundCourses.push(course);
             }
+        }
+    }
+
+    return foundCourses;
+}
+
+async function getCoursesBy(token, userID) {
+    const courses = await getAllCourses(token);
+    const foundCourses = [];
+
+    for (const course of courses) {
+        const user = await getUser(userID);
+
+        if (course.teacherID === user.teacherID) {
+            foundCourses.push(course);
         }
     }
 
@@ -100,5 +116,6 @@ module.exports = {
     findClassFromId,
     getCourses,
     addCourse,
-    registerToCourse
+    registerToCourse,
+    getCoursesBy
 }
