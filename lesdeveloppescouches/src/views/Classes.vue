@@ -5,7 +5,8 @@
       <div id="texts">
         <h3>Où as-tu besoin d’aide ? </h3>
         <p>Des centaines d’élèves donnent des cours pour t’aider !
-          <span @click="$router.push('/becomeateacher')">Tu souhaites devenir l’un d’entre-eux ?</span>
+          <span v-if="!isTeacher" @click="$router.push('/becomeateacher')">Tu souhaites devenir l’un d’entre-eux ?</span>
+          <span v-if="isTeacher" @click="$router.push('/becomeateacher')">Tu veux donner un cours ?</span>
         </p>
       </div>
       <div id="classes-container">
@@ -32,6 +33,7 @@ import {mapState} from "pinia";
 import {useCoopeerStore} from "@/stores/store";
 import {getAllClasses} from "@/providers/ClassProvider";
 import BaseButton from "@/components/BaseButton";
+import {getUsers} from "@/providers/AuthProvider";
 
 export default {
   // eslint-disable-next-line
@@ -45,10 +47,23 @@ export default {
     return {
       classes : [],
       selectedClasses : [],
+      isTeacher: localStorage.getItem("isTeacher") != null
     }
   },
   async mounted() {
     this.decodeToken(localStorage.getItem("token"));
+
+    const users = await getUsers();
+    const user = JSON.parse(localStorage.getItem("user"));
+    const foundUser = users.filter(u => u._id === user.id);
+
+    console.log(foundUser[0].teacherID)
+
+    if (foundUser[0].teacherID !== undefined) {
+      localStorage.setItem("isTeacher", "true");
+      console.log("is t")
+    }
+
     this.classes = await this.getClasses();
   },
   methods: {
@@ -86,7 +101,7 @@ export default {
   },
   computed: {
     ...mapState(useCoopeerStore, ["subjects"])
-  }
+  },
 }
 </script>
 

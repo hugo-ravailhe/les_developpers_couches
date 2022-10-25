@@ -73,7 +73,7 @@ router.beforeEach(async (to, from) => {
   const protectedViews = ['/becomeateacher', '/settings', '/profile', '/classes']
 
   if (loggedIn) {
-    if (to.path === "/becomeateacher" && localStorage.getItem("isTeacher") !== undefined) {
+    if (to.path === "/becomeateacher" && localStorage.getItem("isTeacher") !== null) {
       return "/teacher";
     }
   }

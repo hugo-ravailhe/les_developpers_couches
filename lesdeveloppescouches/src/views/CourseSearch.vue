@@ -9,6 +9,7 @@
         :teacher="course.teacherID"
         :students="course.students"
         :subject="course.subject"
+        @click="register(course)"
     />
   </div>
   <router-link to="/classes">
@@ -20,7 +21,7 @@
 import BaseHeader from "@/components/BaseHeader";
 import {mapActions, mapState} from "pinia";
 import {useCoopeerStore} from "@/stores/store";
-import {getCourses} from "@/providers/ClassProvider";
+import {getCourses, registerToCourse} from "@/providers/ClassProvider";
 import BaseButton from "@/components/BaseButton";
 import Course from "@/components/Course";
 
@@ -33,7 +34,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useCoopeerStore, ["clearStore"])
+    ...mapActions(useCoopeerStore, ["clearStore"]),
+    async register(course) {
+      await registerToCourse(course, localStorage.getItem("token"));
+      this.$router.push("/classes");
+
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!course.students.includes(user.id))
+        alert("Vous avez bien été inscrit au cours : " + course.subject);
+      else
+        alert("Vous êtes déjà inscrit à ce cours");
+    }
   },
   computed: {
     ...mapState(useCoopeerStore, ["subjects"])
@@ -43,7 +54,7 @@ export default {
     this.courses.push(...foundCourses);
     console.log(this.courses);
     this.clearStore();
-  }
+  },
 }
 </script>
 
