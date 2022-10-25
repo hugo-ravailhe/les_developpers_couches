@@ -44,8 +44,6 @@ async function getCourses(token, subjects) {
         }
     }
 
-    console.log(foundCourses);
-
     return foundCourses;
 }
 
