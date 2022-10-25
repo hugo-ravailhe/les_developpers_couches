@@ -1,10 +1,11 @@
 <template>
   <BaseHeader/>
-  <div v-if="courses.length === 0">
+  <div id="content" v-if="courses.length === 0">
     <h1>No courses were found</h1>
   </div>
-  <div v-for="(course,i) in this.courses" :key="i" v-else>
+  <div id="content" v-for="(course,i) in this.courses" :key="i" v-else>
     <Course
+        id="course"
         :date="course.date"
         :teacher="course.teacherID"
         :students="course.students"
@@ -36,14 +37,23 @@ export default {
   methods: {
     ...mapActions(useCoopeerStore, ["clearStore"]),
     async register(course) {
-      await registerToCourse(course, localStorage.getItem("token"));
-      this.$router.push("/classes");
+      const res = await registerToCourse(course, localStorage.getItem("token"));
+
+      if (res.error === "cannot attend your own classes") {
+        alert("Vous ne pouvez vous inscrire à votre propre cours")
+        return;
+      }
 
       const user = JSON.parse(localStorage.getItem("user"));
-      if (!course.students.includes(user.id))
+      if (!course.students.includes(user.id)) {
         alert("Vous avez bien été inscrit au cours : " + course.subject);
-      else
+      }
+      else {
         alert("Vous êtes déjà inscrit à ce cours");
+        return;
+      }
+
+      this.$router.push("/classes");
     }
   },
   computed: {
@@ -60,5 +70,17 @@ export default {
 </script>
 
 <style scoped>
+#content {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
 
+#course {
+  height: 20%;
+  width: 30%;
+  border-radius: 16px;
+}
 </style>
