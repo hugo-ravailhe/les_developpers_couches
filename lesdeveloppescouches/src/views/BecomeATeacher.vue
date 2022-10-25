@@ -43,6 +43,7 @@
       async registerToClasses() {
         await registerTeacherToClasses({token:localStorage.getItem("token"), subjects:this.selectedClasses});
         localStorage.setItem("isTeacher", "true");
+        window.location.reload();
       },
       async getClasses() {
         return await getAllClasses(localStorage.getItem("token"));
@@ -70,7 +71,6 @@
         }
 
         this.selectedClasses.push(clazz);
-        console.log(this.selectedClasses);
       }
     }
   }

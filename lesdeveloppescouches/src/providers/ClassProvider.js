@@ -35,7 +35,6 @@ async function getAllCourses(token) {
 async function getCourses(token, subjects) {
     const courses = await getAllCourses(token);
     const foundCourses = [];
-    console.log(subjects);
 
     for (const course of courses) {
         for (const subject of subjects) {
@@ -78,11 +77,30 @@ async function addCourse(data, token) {
     })
 }
 
+// eslint-disable-next-line
+async function registerToCourse(data, token) {
+    const res = await fetch(BASE_URL + "course/register", {
+        method: "POST",
+        headers: {
+            "Authorization": "Token " + token,
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "_id":data._id,
+            "subject":data.subject,
+            "teacherID":data.teacherID
+        })
+    })
+
+    return await res.json();
+}
+
 module.exports = {
     getAllClasses,
     registerTeacherToClasses,
     getAllCourses,
     findClassFromId,
     getCourses,
-    addCourse
+    addCourse,
+    registerToCourse
 }
